@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/hello-regex/HelloRegex.Tests/HelloRegex.Tests.csproj",
+        "${workspaceFolder}/divisibility/DivisibilityRegex.Tests/DivisibilityRegex.Tests.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/hello-regex/HelloRegex.Tests/HelloRegex.Tests.csproj",
+        "${workspaceFolder}/divisibility/DivisibilityRegex.Tests/DivisibilityRegex.Tests.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -33,7 +33,7 @@
         "watch",
         "run",
         "--project",
-        "${workspaceFolder}/hello-regex/HelloRegex.Tests/HelloRegex.Tests.csproj"
+        "${workspaceFolder}/divisibility/DivisibilityRegex.Tests/DivisibilityRegex.Tests.csproj"
       ],
       "problemMatcher": "$msCompile"
     }
