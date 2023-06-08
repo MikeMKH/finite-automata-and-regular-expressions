@@ -4,7 +4,7 @@ namespace DivisibilityRegex.Tests;
 
 public class BinaryDivisibilityTests
 {
-    string divisibleBy2 = @"^0*(1*0+)*$";
+    string divisibleBy2 = @"^0*[01]*0+$";
     
     [Theory]
     [InlineData(0)]
