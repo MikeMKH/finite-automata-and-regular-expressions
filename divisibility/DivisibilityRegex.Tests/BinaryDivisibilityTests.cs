@@ -4,9 +4,10 @@ namespace DivisibilityRegex.Tests;
 
 public class BinaryDivisibilityTests
 {
-    string divisibleBy2 = @"0*1*0+";
+    string divisibleBy2 = @"^0*(1*0+)*$";
     
     [Theory]
+    [InlineData(0)]
     [InlineData(2)]
     [InlineData(4)]
     [InlineData(6)]
@@ -16,6 +17,8 @@ public class BinaryDivisibilityTests
     
     [Theory]
     [InlineData(3)]
+    [InlineData(9)]
+    [InlineData(31)]
     public void OddValuesAreNotDivisibleBy2(int number) => divisibleBy2.AssertAreNotMatch(number);
 }
 
