@@ -2,9 +2,14 @@ using System.Text.RegularExpressions;
 
 namespace DivisibilityRegex.Tests;
 
-public class BinaryDivisibilityTests
+public class DivisibilityTests
 {
-    string divisibleBy2 = @"^0*[01]*0+$";
+    /*
+      r' = (2r + b) mod 2
+      0 | 0 1
+      1 | 0 1
+    */
+    string binaryDivisibleBy2 = @"^[01]*0$"; // problem 1
     
     [Theory]
     [InlineData(0)]
@@ -13,13 +18,13 @@ public class BinaryDivisibilityTests
     [InlineData(6)]
     [InlineData(10)]
     [InlineData(357110)]
-    public void EvenValuesAreDivisibleBy2(int number) => divisibleBy2.AssertIsMatch(number); 
+    public void EvenValuesAreDivisibleBy2(int number) => binaryDivisibleBy2.AssertIsMatch(number); 
     
     [Theory]
     [InlineData(3)]
     [InlineData(9)]
     [InlineData(31)]
-    public void OddValuesAreNotDivisibleBy2(int number) => divisibleBy2.AssertAreNotMatch(number);
+    public void OddValuesAreNotDivisibleBy2(int number) => binaryDivisibleBy2.AssertAreNotMatch(number);
 }
 
 public static class UtilityExtensions
