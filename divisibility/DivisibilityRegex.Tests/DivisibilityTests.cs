@@ -31,6 +31,8 @@ public class DivisibilityTests
     [InlineData(6)]
     [InlineData(10)]
     [InlineData(357110)]
+    [InlineData(2468)]
+    [InlineData(8642)]
     public void EvenValuesAreDivisibleBy2(int number)
     {
       binaryDivisibleBy2.AssertBinaryIsMatch(number);
@@ -41,6 +43,8 @@ public class DivisibilityTests
     [InlineData(3)]
     [InlineData(9)]
     [InlineData(31)]
+    [InlineData(13579)]
+    [InlineData(97531)]
     public void OddValuesAreNotDivisibleBy2(int number)
     {
       binaryDivisibleBy2.AssertBinaryAreNotMatch(number);
@@ -53,11 +57,15 @@ public static class UtilityExtensions
     public static string ToBinaryString(this int value) => Convert.ToString(value, 2);
     public static Regex ToRegex(this string value) => new Regex(value);
     public static void AssertBinaryIsMatch(this string regex, int number)
-      => Assert.True(regex.ToRegex().IsMatch(number.ToBinaryString()));
+      => regex.AssertIsMatch(n => n.ToBinaryString(), number);
     public static void AssertBinaryAreNotMatch(this string regex, int number)
-      => Assert.False(regex.ToRegex().IsMatch(number.ToBinaryString()));
+      => regex.AssertAreNotMatch(n => n.ToBinaryString(), number);
     public static void AssertDecimalIsMatch(this string regex, int number)
-      => Assert.True(regex.ToRegex().IsMatch(number.ToString()));
+      => regex.AssertIsMatch(n => n.ToString(), number);
     public static void AssertDecimalAreNotMatch(this string regex, int number)
-      => Assert.False(regex.ToRegex().IsMatch(number.ToString()));
+      => regex.AssertAreNotMatch(n => n.ToString(), number);
+    public static void AssertIsMatch(this string regex, Func<int, string> to, int number)
+      => Assert.True(regex.ToRegex().IsMatch(to(number)));
+    public static void AssertAreNotMatch(this string regex, Func<int, string> to, int number)
+      => Assert.False(regex.ToRegex().IsMatch(to(number)));
 }
