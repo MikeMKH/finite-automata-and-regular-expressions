@@ -24,18 +24,6 @@ public class DivisibilityTests
     */
     const string decimalDivisibleBy2 = @"^([02468]|([13579]+[02468]))+$";
     
-    /*
-      problem 3
-      r' = (2r + b) mod 4
-        b 0 1
-      r -----
-      0 | 0 1
-      1 | 2 3
-      2 | 0 1
-      3 | 2 3
-    */
-    const string binaryDivisibleBy4 = @"^(0|(1(1|(01))*)00)+$";
-    
     [Theory]
     [InlineData(0)]
     [InlineData(2)]
@@ -62,6 +50,18 @@ public class DivisibilityTests
       binaryDivisibleBy2.AssertBinaryAreNotMatch(number);
       decimalDivisibleBy2.AssertDecimalAreNotMatch(number);
     }
+    
+    /*
+      problem 3
+      r' = (2r + b) mod 4
+        b 0 1
+      r -----
+      0 | 0 1
+      1 | 2 3
+      2 | 0 1
+      3 | 2 3
+    */
+    const string binaryDivisibleBy4 = @"^(0|(1(1|(01))*)00)+$";
     
     [Fact]
     public void ZeroToOneThousandTimes4IsDivisibleBy4()
