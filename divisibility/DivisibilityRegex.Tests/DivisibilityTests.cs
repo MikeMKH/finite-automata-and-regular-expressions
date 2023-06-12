@@ -86,8 +86,7 @@ public class DivisibilityTests
       problem 4
       2^n needs n 0s to return back to the final state
     */
-    Func<int, string> divisibleBy2nthPower =
-      n => @"^0|([01]*0{" + n + @"})+$";
+    Func<int, string> divisibleBy2nthPower = n => @"^0|([01]*0{" + n + @"})+$";
     
     [Theory]
     [InlineData(2)]
