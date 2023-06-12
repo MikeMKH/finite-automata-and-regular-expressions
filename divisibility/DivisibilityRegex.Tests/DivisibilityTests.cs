@@ -61,7 +61,7 @@ public class DivisibilityTests
       2 | 0 1
       3 | 2 3
     */
-    const string binaryDivisibleBy4 = @"^(0|(1(1|(01))*)00)+$";
+    const string binaryDivisibleBy4 = @"^(0|(1(1|(01))*)0{2})+$";
     
     [Fact]
     public void ZeroToOneThousandTimes4IsDivisibleBy4()
@@ -81,6 +81,29 @@ public class DivisibilityTests
         else binaryDivisibleBy4.AssertBinaryAreNotMatch(i);
       }
     }
+    
+    /*
+      problem 4
+      2^n needs n 0s to return back to the final state
+    */
+    Func<int, string> divisibleBy2nthPower =
+      n => @"^0|([01]*0{" + n + @"})+$";
+    
+    [Theory]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(10)]
+    public void UseValuesZeroToTenThousandToVerifyDivisibleBy2nthPower(int n)
+    {
+      var regex = divisibleBy2nthPower(n);
+      var value = Math.Pow(2, n);
+      for (var i = 0; i <= 10_000; i++)
+      {
+        if (i % value == 0) regex.AssertBinaryIsMatch(i);
+        else regex.AssertBinaryAreNotMatch(i);
+      }
+    }
 }
 
 public static class UtilityExtensions
@@ -96,7 +119,7 @@ public static class UtilityExtensions
     public static void AssertDecimalAreNotMatch(this string regex, int number)
       => regex.AssertAreNotMatch(n => n.ToString(), number);
     public static void AssertIsMatch(this string regex, Func<int, string> to, int number)
-      => Assert.True(regex.ToRegex().IsMatch(to(number)));
+      => Assert.True(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
     public static void AssertAreNotMatch(this string regex, Func<int, string> to, int number)
-      => Assert.False(regex.ToRegex().IsMatch(to(number)));
+      => Assert.False(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
 }
