@@ -109,7 +109,7 @@ public class DivisibilityTests
       x mod 2 = 0 but not x mod 2^n = 0 where n > 1
       value must end with 10
     */
-    const string divisibleBy2ButNoOtherPowerOf2 = @"^(0*11*0)+$";
+    const string binaryDivisibleBy2ButNoOtherPowerOf2 = @"^(0*11*0)+$";
     
     [Fact]
     public void VerifyDivisibleBy2ButNoOtherPowerOf2()
@@ -117,8 +117,8 @@ public class DivisibilityTests
       for(var i = 3; i <= 10_000; i++)
       {
         if (isDivisibleBy2(i) && !isDivisibleByPowerOf2GreaterThan2(i))
-          divisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
-        else divisibleBy2ButNoOtherPowerOf2.AssertBinaryNoMatch(i);
+          binaryDivisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
+        else binaryDivisibleBy2ButNoOtherPowerOf2.AssertBinaryNoMatch(i);
       }
       
       bool isDivisibleBy2(int x) => x % 2 == 0;
@@ -135,6 +135,26 @@ public class DivisibilityTests
     }
     
     
+    /*
+      problem 6
+      r' = (2r + b) mod 3
+        b 0 1
+      r -----
+      0 | 0 1
+      1 | 2 0
+      2 | 1 2
+    */
+    const string binaryDivisibleBy3 = @"^(0|(1(01*0)*1))*$";
+    
+    [Fact]
+    public void UseValuesOneToTenThousandToVerifyDivisibleBy3()
+    {
+      for(var i = 1; i <= 10_000; i++)
+      {
+        if (i % 3 == 0) binaryDivisibleBy3.AssertBinaryIsMatch(i);
+        else binaryDivisibleBy3.AssertBinaryNoMatch(i);
+      }
+    }
 }
 
 public static class UtilityExtensions
