@@ -74,13 +74,7 @@ public class DivisibilityTests
     
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDivisibleBy4()
-    {
-      for(var i = 1; i <= 10_000; i++)
-      {
-        if (i % 4 == 0) binaryDivisibleBy4.AssertBinaryIsMatch(i);
-        else binaryDivisibleBy4.AssertBinaryNoMatch(i);
-      }
-    }
+      => binaryDivisibleBy4.VerifyBinaryIsDivisibleBy(4);
     
     /*
       problem 4
@@ -97,11 +91,7 @@ public class DivisibilityTests
     {
       var regex = divisibleBy2nthPower(n);
       var value = Math.Pow(2, n);
-      for (var i = 0; i <= 10_000; i++)
-      {
-        if (i % value == 0) regex.AssertBinaryIsMatch(i);
-        else regex.AssertBinaryNoMatch(i);
-      }
+      regex.VerifyBinaryIsDivisibleBy(value);
     }
     
     /*
@@ -148,13 +138,7 @@ public class DivisibilityTests
     
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDivisibleBy3()
-    {
-      for(var i = 1; i <= 10_000; i++)
-      {
-        if (i % 3 == 0) binaryDivisibleBy3.AssertBinaryIsMatch(i);
-        else binaryDivisibleBy3.AssertBinaryNoMatch(i);
-      }
-    }
+      => binaryDivisibleBy3.VerifyBinaryIsDivisibleBy(3);
 }
 
 public static class UtilityExtensions
@@ -173,4 +157,12 @@ public static class UtilityExtensions
       => Assert.True(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
     public static void AssertNoMatch(this string regex, Func<int, string> to, int number)
       => Assert.False(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
+    public static void VerifyBinaryIsDivisibleBy(this string regex, double divisor)
+    {
+      for(var i = 1; i <= 10_000; i++)
+      {
+        if (i % divisor == 0) regex.AssertBinaryIsMatch(i);
+        else regex.AssertBinaryNoMatch(i);
+      }
+    }
 }
