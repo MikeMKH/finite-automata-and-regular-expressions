@@ -103,6 +103,25 @@ public class DivisibilityTests
         else regex.AssertBinaryAreNotMatch(i);
       }
     }
+    
+    /*
+      problem 5
+      x mod 2 = 0 but not x mod 2^n = 0 where n > 1
+      value must end with 10
+    */
+    const string divisibleBy2ButNoOtherPowerOf2 = @"^(0*11*0)+$";
+    
+    public void VerifyDivisibleBy2ButNoOtherPowerOf2()
+    {
+      for(var i = 3; i <= 10_000; i++)
+      {
+        if (isDivisibleBy2(i) && !isPowerOf2(2)) divisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
+        else divisibleBy2ButNoOtherPowerOf2.AssertBinaryAreNotMatch(i);
+      }
+      
+      bool isDivisibleBy2(int x) => x % 2 == 0;
+      bool isPowerOf2(int x) => x != 0 && ((x & (x - 1)) == 0);
+    }
 }
 
 public static class UtilityExtensions
