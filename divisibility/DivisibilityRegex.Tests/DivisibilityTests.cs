@@ -47,8 +47,8 @@ public class DivisibilityTests
     [InlineData(97531)]
     public void OddValuesAreNotDivisibleBy2(int number)
     {
-      binaryDivisibleBy2.AssertBinaryAreNotMatch(number);
-      decimalDivisibleBy2.AssertDecimalAreNotMatch(number);
+      binaryDivisibleBy2.AssertBinaryNoMatch(number);
+      decimalDivisibleBy2.AssertDecimalNoMatch(number);
     }
     
     /*
@@ -78,7 +78,7 @@ public class DivisibilityTests
       for(var i = 1; i <= 10_000; i++)
       {
         if (i % 4 == 0) binaryDivisibleBy4.AssertBinaryIsMatch(i);
-        else binaryDivisibleBy4.AssertBinaryAreNotMatch(i);
+        else binaryDivisibleBy4.AssertBinaryNoMatch(i);
       }
     }
     
@@ -100,7 +100,7 @@ public class DivisibilityTests
       for (var i = 0; i <= 10_000; i++)
       {
         if (i % value == 0) regex.AssertBinaryIsMatch(i);
-        else regex.AssertBinaryAreNotMatch(i);
+        else regex.AssertBinaryNoMatch(i);
       }
     }
     
@@ -116,7 +116,7 @@ public class DivisibilityTests
       for(var i = 3; i <= 10_000; i++)
       {
         if (isDivisibleBy2(i) && !isPowerOf2(2)) divisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
-        else divisibleBy2ButNoOtherPowerOf2.AssertBinaryAreNotMatch(i);
+        else divisibleBy2ButNoOtherPowerOf2.AssertBinaryNoMatch(i);
       }
       
       bool isDivisibleBy2(int x) => x % 2 == 0;
@@ -130,14 +130,14 @@ public static class UtilityExtensions
     public static Regex ToRegex(this string value) => new Regex(value);
     public static void AssertBinaryIsMatch(this string regex, int number)
       => regex.AssertIsMatch(n => n.ToBinaryString(), number);
-    public static void AssertBinaryAreNotMatch(this string regex, int number)
-      => regex.AssertAreNotMatch(n => n.ToBinaryString(), number);
+    public static void AssertBinaryNoMatch(this string regex, int number)
+      => regex.AssertNoMatch(n => n.ToBinaryString(), number);
     public static void AssertDecimalIsMatch(this string regex, int number)
       => regex.AssertIsMatch(n => n.ToString(), number);
-    public static void AssertDecimalAreNotMatch(this string regex, int number)
-      => regex.AssertAreNotMatch(n => n.ToString(), number);
+    public static void AssertDecimalNoMatch(this string regex, int number)
+      => regex.AssertNoMatch(n => n.ToString(), number);
     public static void AssertIsMatch(this string regex, Func<int, string> to, int number)
       => Assert.True(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
-    public static void AssertAreNotMatch(this string regex, Func<int, string> to, int number)
+    public static void AssertNoMatch(this string regex, Func<int, string> to, int number)
       => Assert.False(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
 }
