@@ -111,17 +111,30 @@ public class DivisibilityTests
     */
     const string divisibleBy2ButNoOtherPowerOf2 = @"^(0*11*0)+$";
     
+    [Fact]
     public void VerifyDivisibleBy2ButNoOtherPowerOf2()
     {
       for(var i = 3; i <= 10_000; i++)
       {
-        if (isDivisibleBy2(i) && !isPowerOf2(2)) divisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
+        if (isDivisibleBy2(i) && !isDivisibleByPowerOf2GreaterThan2(i))
+          divisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
         else divisibleBy2ButNoOtherPowerOf2.AssertBinaryNoMatch(i);
       }
       
       bool isDivisibleBy2(int x) => x % 2 == 0;
       bool isPowerOf2(int x) => x != 0 && ((x & (x - 1)) == 0);
+      bool isDivisibleByPowerOf2GreaterThan2(int x)
+      {
+        if (x == 4) return true;
+        for (var i = 4; i < x; i++)
+        {
+          if (isPowerOf2(i) && x % i == 0) return true;
+        }
+        return false;
+      }
     }
+    
+    
 }
 
 public static class UtilityExtensions
