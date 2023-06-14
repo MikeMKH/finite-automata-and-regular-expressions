@@ -196,10 +196,11 @@ public static class UtilityExtensions
       => Assert.False(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
     public static void VerifyBinaryIsDivisibleBy(this string regex, double divisor)
     {
-      for(var i = 1; i <= 10_000; i++)
+      for(var value = 1; value <= 10_000; value++)
       {
-        if (i % divisor == 0) regex.AssertBinaryIsMatch(i);
-        else regex.AssertBinaryNoMatch(i);
+        // note divisor needs to be a double so we cannot use isDivisibleBy
+        if (value % divisor == 0) regex.AssertBinaryIsMatch(value);
+        else regex.AssertBinaryNoMatch(value);
       }
     }
 }
