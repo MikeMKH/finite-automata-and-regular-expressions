@@ -66,9 +66,9 @@ public class DivisibilityTests
     [Fact]
     public void ZeroToOneThousandTimes4IsDivisibleBy4()
     {
-      for(var i = 0; i <= 1_000; i++)
+      for(var value = 0; value <= 1_000; value++)
       {
-        binaryDivisibleBy4.AssertBinaryIsMatch(i * 4);
+        binaryDivisibleBy4.AssertBinaryIsMatch(value * 4);
       }
     }
     
@@ -104,14 +104,13 @@ public class DivisibilityTests
     [Fact]
     public void VerifyDivisibleBy2ButNoOtherPowerOf2()
     {
-      for(var i = 3; i <= 10_000; i++)
+      for(var value = 3; value <= 10_000; value++)
       {
-        if (isDivisibleBy2(i) && !isDivisibleByPowerOf2GreaterThan2(i))
-          binaryDivisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(i);
-        else binaryDivisibleBy2ButNoOtherPowerOf2.AssertBinaryNoMatch(i);
+        if (value.isDivisibleBy(2) && !isDivisibleByPowerOf2GreaterThan2(value))
+          binaryDivisibleBy2ButNoOtherPowerOf2.AssertBinaryIsMatch(value);
+        else binaryDivisibleBy2ButNoOtherPowerOf2.AssertBinaryNoMatch(value);
       }
       
-      bool isDivisibleBy2(int x) => x % 2 == 0;
       bool isPowerOf2(int x) => x != 0 && ((x & (x - 1)) == 0);
       bool isDivisibleByPowerOf2GreaterThan2(int x)
       {
@@ -153,10 +152,10 @@ public class DivisibilityTests
 
     public void UseValuesOneToTenThousandToVerifyDecimalDivisibleBy3()
     {
-      for (var i = 0; i <= 10_000; i++)
+      for (var value = 0; value <= 10_000; value++)
       {
-        if (i % 3 == 0) decimalDivisibleBy3.AssertDecimalIsMatch(i);
-        else decimalDivisibleBy3.AssertDecimalNoMatch(i);
+        if (value.isDivisibleBy(3)) decimalDivisibleBy3.AssertDecimalIsMatch(value);
+        else decimalDivisibleBy3.AssertDecimalNoMatch(value);
       }
     }
        
@@ -170,19 +169,17 @@ public class DivisibilityTests
     [Fact]
     public void VerifyDivisibleBy3ButNotBy2()
     {
-      for(var i = 3; i <= 10_000; i++)
+      for(var value = 3; value <= 10_000; value++)
       {
-        if (isDivisibleBy3(i) && !isDivisibleBy2(i)) binaryDivisibleBy3ButNotBy2.AssertBinaryIsMatch(i);
-        else binaryDivisibleBy3ButNotBy2.AssertBinaryNoMatch(i);
+        if (value.isDivisibleBy(3) && !value.isDivisibleBy(2)) binaryDivisibleBy3ButNotBy2.AssertBinaryIsMatch(value);
+        else binaryDivisibleBy3ButNotBy2.AssertBinaryNoMatch(value);
       }
-      
-      bool isDivisibleBy2(int x) => x % 2 == 0;
-      bool isDivisibleBy3(int x) => x % 3 == 0;
     }
 }
 
 public static class UtilityExtensions
 {
+    public static bool isDivisibleBy(this int value, int divisor) => value % divisor == 0;
     public static string ToBinaryString(this int value) => Convert.ToString(value, 2);
     public static Regex ToRegex(this string value) => new Regex(value);
     public static void AssertBinaryIsMatch(this string regex, int number)
