@@ -159,6 +159,26 @@ public class DivisibilityTests
         else decimalDivisibleBy3.AssertDecimalNoMatch(i);
       }
     }
+       
+    /*
+      problem 8
+      x mod 3 = 0 but not x mod 2 = 0
+      value must be divisible by 3 but not end with 0
+    */
+    const string binaryDivisibleBy3ButNotBy2 = @"^0*1(01*0)*1(0*1(01*0)*1)*$";
+    
+    [Fact]
+    public void VerifyDivisibleBy3ButNotBy2()
+    {
+      for(var i = 3; i <= 10_000; i++)
+      {
+        if (isDivisibleBy3(i) && !isDivisibleBy2(i)) binaryDivisibleBy3ButNotBy2.AssertBinaryIsMatch(i);
+        else binaryDivisibleBy3ButNotBy2.AssertBinaryNoMatch(i);
+      }
+      
+      bool isDivisibleBy2(int x) => x % 2 == 0;
+      bool isDivisibleBy3(int x) => x % 3 == 0;
+    }
 }
 
 public static class UtilityExtensions
