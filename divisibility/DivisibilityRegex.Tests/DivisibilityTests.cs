@@ -124,7 +124,6 @@ public class DivisibilityTests
       }
     }
     
-    
     /*
       problem 6
       r' = (2r + b) mod 3
@@ -139,6 +138,27 @@ public class DivisibilityTests
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDivisibleBy3()
       => binaryDivisibleBy3.VerifyBinaryIsDivisibleBy(3);
+    
+    /*
+      problem 7
+      r' = (10r + d) mod 3
+        d 0 1 2 3 4 5 6 7 8 9
+      r ---------------------
+      0 | 0 1 2 0 1 2 0 1 2 0
+      1 | 1 2 0 1 2 0 1 2 0 1
+      2 | 2 0 1 2 0 1 2 0 1 2
+    */
+    const string decimalDivisibleBy3 =
+      @"^([0369]|([258][0369]*[147])|(([147]|([258][0369]*[258]))([0369]|([147][0369]*[258]))*([258]|([147][0369]*[147]))))*$";
+
+    public void UseValuesOneToTenThousandToVerifyDecimalDivisibleBy3()
+    {
+      for (var i = 0; i <= 10_000; i++)
+      {
+        if (i % 3 == 0) decimalDivisibleBy3.AssertDecimalIsMatch(i);
+        else decimalDivisibleBy3.AssertDecimalNoMatch(i);
+      }
+    }
 }
 
 public static class UtilityExtensions
