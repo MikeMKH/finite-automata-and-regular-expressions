@@ -175,6 +175,22 @@ public class DivisibilityTests
         else binaryDivisibleBy3ButNotBy2.AssertBinaryNoMatch(value);
       }
     }
+    
+    /*
+      problem 9
+      x mod 3 != 0
+      makes 1 and 2 the ending state
+    */
+    const string binaryNotDivisibleBy3 = @"^0*1((10*1)|(01*0))*(01*)?$";
+    
+    public void UseValuesOneToTenThousandToVerifyNotDivisibleBy3()
+    {
+      for (var value = 0; value <= 10_000; value++)
+      {
+        if (!value.isDivisibleBy(3)) binaryNotDivisibleBy3.AssertBinaryIsMatch(value);
+        else binaryNotDivisibleBy3.AssertBinaryNoMatch(value);
+      }
+    }
 }
 
 public static class UtilityExtensions
