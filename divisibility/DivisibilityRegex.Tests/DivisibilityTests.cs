@@ -150,14 +150,9 @@ public class DivisibilityTests
     const string decimalDivisibleBy3 =
       @"^([0369]|([258][0369]*[147])|(([147]|([258][0369]*[258]))([0369]|([147][0369]*[258]))*([258]|([147][0369]*[147]))))*$";
 
+    [Fact]
     public void UseValuesOneToTenThousandToVerifyDecimalDivisibleBy3()
-    {
-      for (var value = 0; value <= 10_000; value++)
-      {
-        if (value.isDivisibleBy(3)) decimalDivisibleBy3.AssertDecimalIsMatch(value);
-        else decimalDivisibleBy3.AssertDecimalNoMatch(value);
-      }
-    }
+      => decimalDivisibleBy3.VerifyDecimalIsDivisibleBy(3);
        
     /*
       problem 8
@@ -189,6 +184,7 @@ public class DivisibilityTests
     */
     const string binaryNotDivisibleBy3 = @"^0*1((10*1)|(01*0))*(01*)?$";
     
+    [Fact]
     public void UseValuesOneToTenThousandToVerifyNotDivisibleBy3()
     {
       for (var value = 0; value <= 10_000; value++)
@@ -235,12 +231,19 @@ public static class UtilityExtensions
     public static void AssertNoMatch(this string regex, Func<int, string> to, int number)
       => Assert.False(regex.ToRegex().IsMatch(to(number)), $"/{regex}/ {to(number)}=={number}");
     public static void VerifyBinaryIsDivisibleBy(this string regex, double divisor)
+      => VerifyIsDivisibleBy(
+        regex, divisor, (r, d) => r.AssertBinaryIsMatch(d), (r, d) => r.AssertBinaryNoMatch(d));
+    public static void VerifyDecimalIsDivisibleBy(this string regex, double divisor)
+      => VerifyIsDivisibleBy(
+        regex, divisor, (r, d) => r.AssertDecimalIsMatch(d), (r, d) => r.AssertDecimalNoMatch(d));
+    public static void VerifyIsDivisibleBy(
+      this string regex, double divisor, Action<string, int> pass, Action<string, int> fail)
     {
       for(var value = 1; value <= 10_000; value++)
       {
         // note divisor needs to be a double so we cannot use isDivisibleBy
-        if (value % divisor == 0) regex.AssertBinaryIsMatch(value);
-        else regex.AssertBinaryNoMatch(value);
+        if (value % divisor == 0) pass(regex, value);
+        else fail(regex, value);
       }
     }
 }
