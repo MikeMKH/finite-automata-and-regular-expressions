@@ -180,6 +180,12 @@ public class DivisibilityTests
       problem 9
       x mod 3 != 0
       makes 1 and 2 the ending state
+      r' = (2r + b) mod 3
+        b 0 1
+      r -----
+      0 | 0 1
+      1 | 2 0
+      2 | 1 2
     */
     const string binaryNotDivisibleBy3 = @"^0*1((10*1)|(01*0))*(01*)?$";
     
@@ -191,6 +197,24 @@ public class DivisibilityTests
         else binaryNotDivisibleBy3.AssertBinaryNoMatch(value);
       }
     }
+    
+    /*
+      problem 10
+      r' = (2r + b) mod 5
+        b 0 1
+      r -----
+      0 | 0 1
+      1 | 2 3
+      2 | 4 0
+      3 | 1 2
+      4 | 3 4
+    */
+    const string binaryDivisibleBy5 = @"^(0|(1((1|(001*0))(101*0)*0)*)(01|((1|(001*0))(101*0)*11)))*$";
+    
+    [Fact]
+    public void UseValuesOneToTenThousandToVerifyDivisibleBy5()
+      => binaryDivisibleBy5.VerifyBinaryIsDivisibleBy(5);
+
 }
 
 public static class UtilityExtensions
