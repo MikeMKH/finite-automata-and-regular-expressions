@@ -219,12 +219,23 @@ public class DivisibilityTests
     
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDecimalDivisibleBy5()
-    {
-      for (var value = 0; value <= 10_000; value++)
-        if (value % 5 == 0) decimalDivisibleBy5.AssertDecimalIsMatch(value);
-        else decimalDivisibleBy5.AssertDecimalNoMatch(value);
-    }
-
+      => decimalDivisibleBy5.VerifyDecimalIsDivisibleBy(5);
+    
+    /*
+      problem 12
+      r' = (2r + b) mod 6
+        b 0 1
+      r -----
+      0 | 0 1
+      1 | 2 3
+      2 | 4 5
+      3 | 0 1
+    */
+    const string binaryDivisibleBy6 = @"^(0|(1((01*0)|(11))*10))*$";
+    
+    [Fact]
+    public void UseValuesOneToTenThousandToVerifyDivisibleBy6()
+      => binaryDivisibleBy6.VerifyBinaryIsDivisibleBy(6);
 }
 
 public static class UtilityExtensions
