@@ -210,6 +210,20 @@ public class DivisibilityTests
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDivisibleBy5()
       => binaryDivisibleBy5.VerifyBinaryIsDivisibleBy(5);
+      
+    /*
+      problem 11
+      x mod 5 = 0 if the last digit is 0 or 5
+    */
+    const string decimalDivisibleBy5 = @"^\d*[05]$";
+    
+    [Fact]
+    public void UseValuesOneToTenThousandToVerifyDecimalDivisibleBy5()
+    {
+      for (var value = 0; value <= 10_000; value++)
+        if (value % 5 == 0) decimalDivisibleBy5.AssertDecimalIsMatch(value);
+        else decimalDivisibleBy5.AssertDecimalNoMatch(value);
+    }
 
 }
 
