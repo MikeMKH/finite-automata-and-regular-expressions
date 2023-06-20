@@ -236,6 +236,28 @@ public class DivisibilityTests
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDivisibleBy6()
       => binaryDivisibleBy6.VerifyBinaryIsDivisibleBy(6);
+    
+    /*
+      problem 13
+      3*2^n is division by 3 with n zeroes
+    */
+    
+    Func<int, string> binaryDivisibleBy3TimesPowerOf2ToNth =
+      n => binaryDivisibleBy3[..^1] + new string('0', n) + "$";
+    
+    [Fact]
+    public void UseValuesOneToTenThousandToVerifyDivisibleBy3TimesPowerOf2ToNth()
+    {
+      for (var n = 0; n <= 10; n++)
+      {
+        for (var x = 1; x <= 10_000; x++)
+        {
+          var value = Convert.ToInt32(x * Math.Pow(2, n));
+          if (value.isDivisibleBy(3)) binaryDivisibleBy3TimesPowerOf2ToNth(n).AssertBinaryIsMatch(value);
+          else binaryDivisibleBy3TimesPowerOf2ToNth(n).AssertBinaryNoMatch(value);
+        }
+      }
+    }
 }
 
 public static class UtilityExtensions
