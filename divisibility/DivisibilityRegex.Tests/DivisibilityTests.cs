@@ -278,6 +278,18 @@ public class DivisibilityTests
     [Fact]
     public void UseValuesOneToTenThousandToVerifyDivisibleBy7()
       => binaryDivisibleBy7.VerifyBinaryIsDivisibleBy(7);
+    
+    /*
+      problem 15
+      r' = (2r + b) mod 10
+      10 = 5 * 2
+    */
+    
+    string binaryDivisibleBy10 = binaryDivisibleBy5[..^1] + "0$";
+    
+    [Fact]
+    public void UseValuesOneToTenThousandToVerifyDivisibleBy10()
+      => binaryDivisibleBy10.VerifyBinaryIsDivisibleBy(10);  
 }
 
 public static class UtilityExtensions
