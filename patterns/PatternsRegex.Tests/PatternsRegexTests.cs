@@ -8,8 +8,8 @@ public class PatternsRegexTests
       problem 16
       binary
     */
-    const string leadingZeroesBinary = @"^[01]*$";
-    const string noLeadingZeroesBinary = @"^0?$|^1[01]*$"; // @"(^0?$)|(^1[01]*$)" IMHO is easier to read
+    const string binaryLeadingZeroes = @"^[01]*$";
+    const string binaryNoLeadingZeroes = @"^0?$|^1[01]*$"; // @"(^0?$)|(^1[01]*$)" IMHO is easier to read
     
     [Theory]
     [InlineData("", true, true)]
@@ -25,10 +25,10 @@ public class PatternsRegexTests
     [InlineData("hello", false, false)]
     [InlineData("h3110", false, false)]
     [InlineData("4311o", false, false)]
-    public void leadingBinary_GivenStringMatchesTheExpectedResult(string given, bool leading, bool noLeading)
+    public void binary_GivenStringMatchesTheExpectedResult(string given, bool leading, bool noLeading)
     {
-        Assert.Equal(leading, Regex.IsMatch(given, leadingZeroesBinary));
-        Assert.Equal(noLeading, Regex.IsMatch(given, noLeadingZeroesBinary));
+        Assert.Equal(leading, Regex.IsMatch(given, binaryLeadingZeroes));
+        Assert.Equal(noLeading, Regex.IsMatch(given, binaryNoLeadingZeroes));
     }
     
     /*
