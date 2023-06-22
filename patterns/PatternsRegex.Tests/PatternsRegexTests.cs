@@ -51,4 +51,31 @@ public class PatternsRegexTests
     [InlineData("4311o", false)]
     public void base10Integers_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, base10Integers));
+    
+    /*
+      problem 18
+      base 10 decimal
+    */
+    const string base10Decimal = @"^(0?|([1-9][0-9]*))(\.[0-9]+)?$";
+    
+    [Theory]
+    [InlineData("1234567890", true)]
+    [InlineData("0", true)]
+    [InlineData("1", true)]
+    [InlineData("0.0", true)]
+    [InlineData(".0", true)]
+    [InlineData("0.1234567890", true)]
+    [InlineData("0.0987654321", true)]
+    [InlineData("1234567890.0987654321", true)]
+    [InlineData("123.456789", true)]
+    [InlineData(".", false)]
+    [InlineData("1.", false)]
+    [InlineData("1234567890.", false)]
+    [InlineData("0.", false)]
+    [InlineData("hello", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void base10Decimal_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, base10Decimal));
 }
