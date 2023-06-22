@@ -22,9 +22,29 @@ public class PatternsRegexTests
     [InlineData("110", true, true)]
     [InlineData("0110", true, false)]
     [InlineData("0100", true, false)]
-    public void GivenStringMatchesTheExpectedResult(string given, bool leading, bool noLeading)
+    public void leadingBinary_GivenStringMatchesTheExpectedResult(string given, bool leading, bool noLeading)
     {
         Assert.Equal(leading, Regex.IsMatch(given, leadingZeroesBinary));
         Assert.Equal(noLeading, Regex.IsMatch(given, noLeadingZeroesBinary));
+    }
+    
+    /*
+      problem 17
+      base 10 int
+    */
+    const string base10Integers = @"^0?$|^[1-9][0-9]*$";
+    
+    [Theory]
+    [InlineData("", true)]
+    [InlineData("0", true)]
+    [InlineData("01", false)]
+    [InlineData("1", true)]
+    [InlineData("10", true)]
+    [InlineData("1234567890", true)]
+    [InlineData("8", true)]
+    [InlineData("0123456789", false)]
+    public void base10Integers_GivenStringMatchTheExpectedResult(string given, bool expected)
+    {
+        Assert.Equal(expected, Regex.IsMatch(given, base10Integers));
     }
 }
