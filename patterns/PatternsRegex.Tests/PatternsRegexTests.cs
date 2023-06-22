@@ -22,6 +22,9 @@ public class PatternsRegexTests
     [InlineData("110", true, true)]
     [InlineData("0110", true, false)]
     [InlineData("0100", true, false)]
+    [InlineData("hello", false, false)]
+    [InlineData("h3110", false, false)]
+    [InlineData("4311o", false, false)]
     public void leadingBinary_GivenStringMatchesTheExpectedResult(string given, bool leading, bool noLeading)
     {
         Assert.Equal(leading, Regex.IsMatch(given, leadingZeroesBinary));
@@ -43,6 +46,9 @@ public class PatternsRegexTests
     [InlineData("1234567890", true)]
     [InlineData("8", true)]
     [InlineData("0123456789", false)]
+    [InlineData("hello", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
     public void base10Integers_GivenStringMatchTheExpectedResult(string given, bool expected)
     {
         Assert.Equal(expected, Regex.IsMatch(given, base10Integers));
