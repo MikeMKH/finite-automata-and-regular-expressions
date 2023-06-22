@@ -50,7 +50,5 @@ public class PatternsRegexTests
     [InlineData("h3110", false)]
     [InlineData("4311o", false)]
     public void base10Integers_GivenStringMatchTheExpectedResult(string given, bool expected)
-    {
-        Assert.Equal(expected, Regex.IsMatch(given, base10Integers));
-    }
+      => Assert.Equal(expected, Regex.IsMatch(given, base10Integers));
 }
