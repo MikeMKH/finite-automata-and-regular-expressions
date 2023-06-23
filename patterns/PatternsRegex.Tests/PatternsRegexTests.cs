@@ -104,4 +104,36 @@ public class PatternsRegexTests
     [InlineData("4311.o", false)]
     public void binaryExactlyThee1_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, binaryExactlyThee1));
+      
+    /*
+      problem 20
+      given alphabet {a,b,c,d}
+      find where words contain exactly one c and one d
+    */
+    
+    const string abcdExactlyOnecd = @"^([ab]*c[ab]*d[ab]*)|([ab]*d[ab]*c[ab]*)$";
+    
+    [Theory]
+    [InlineData("abcd", true)]
+    [InlineData("abdc", true)]
+    [InlineData("adcb", true)]
+    [InlineData("cd", true)]
+    [InlineData("dc", true)]
+    [InlineData("adaca", true)]
+    [InlineData("bdbcb", true)]
+    [InlineData("badbacab", true)]
+    [InlineData("badbacabc", false)]
+    [InlineData("c", false)]
+    [InlineData("d", false)]
+    [InlineData("abd", false)]
+    [InlineData("abc", false)]
+    [InlineData("hello", false)]
+    [InlineData("he110", false)]
+    [InlineData("heabcd0", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void abcdExactlyOnecd_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, abcdExactlyOnecd));
+    
 }
