@@ -136,4 +136,39 @@ public class PatternsRegexTests
     public void abcdExactlyOnecd_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, abcdExactlyOnecd));
     
+    /*
+      problem 21
+      given alphabet {a,b,c,d}
+      find where words contain exactly two c and two d
+    */
+    
+    const string abcdExactlyTwocd =
+      @"^([ab]*c[ab]*c[ab]*d[ab]*d[ab]*)|([ab]*d[ab]*d[ab]*c[ab]*c[ab]*)|([ab]*c[ab]*d[ab]*c[ab]*d[ab]*)|([ab]*d[ab]*c[ab]*d[ab]*c[ab]*)$";
+    
+    [Theory]
+    [InlineData("ccdd", true)]
+    [InlineData("ddcc", true)]
+    [InlineData("cdcd", true)]
+    [InlineData("dcdc", true)]
+    [InlineData("bacbacbadbadba", true)]
+    [InlineData("aaddccaa", true)]
+    [InlineData("bcadcdb", true)]
+    [InlineData("adacadaca", true)]
+    [InlineData("c", false)]
+    [InlineData("d", false)]
+    [InlineData("abd", false)]
+    [InlineData("abcd", false)]
+    [InlineData("abccd", false)]
+    [InlineData("abcdd", false)]
+    [InlineData("abcddd", false)]
+    [InlineData("abcccddd", false)]
+    [InlineData("hello", false)]
+    [InlineData("he110", false)]
+    [InlineData("heabcd0", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void abcdExactlyTwocd_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, abcdExactlyTwocd));
+    
 }
