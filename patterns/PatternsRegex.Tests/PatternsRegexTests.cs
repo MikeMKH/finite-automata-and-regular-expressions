@@ -178,6 +178,7 @@ public class PatternsRegexTests
     
     const string binaryNoMoreThanTwo1InRun = @"^(1{0,2}0)*1{0,2}$";
 
+    [Theory]
     [InlineData("", true)]
     [InlineData("0", true)]
     [InlineData("00", true)]
@@ -190,7 +191,7 @@ public class PatternsRegexTests
     [InlineData("01000000101000001", true)]
     [InlineData("11011011011", true)]
     [InlineData("111", false)]
-    [InlineData("1101", false)]
+    [InlineData("110111", false)]
     [InlineData("111111", false)]
     [InlineData("0111", false)]
     [InlineData("01110", false)]
@@ -224,5 +225,31 @@ public class PatternsRegexTests
     [InlineData(6, "4311.o", false)]
     public void makeBinaryNoRunsOfMoreThan_GivenKAndStringMatchTheExpectedResult(int k, string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, makeBinaryNoRunsOfMoreThan(k)));
-
+    
+    /*
+      problem 25
+      binary numbers with no runs of three or more 0s
+    */
+    
+    const string binaryNoMoreThanTwo0InRun = @"^(0{0,2}1)*0{0,2}$";
+    
+    [Theory]
+    [InlineData("", true)]
+    [InlineData("0", true)]
+    [InlineData("00", true)]
+    [InlineData("100", true)]
+    [InlineData("001", true)]
+    [InlineData("1001", true)]
+    [InlineData("110011", true)]
+    [InlineData("111101111001111101101001", true)]
+    [InlineData("000", false)]
+    [InlineData("001001000", false)]
+    [InlineData("hello", false)]
+    [InlineData("he110", false)]
+    [InlineData("heabcd0", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void binaryNoMoreThanTwo0InRun_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, binaryNoMoreThanTwo0InRun));
 }
