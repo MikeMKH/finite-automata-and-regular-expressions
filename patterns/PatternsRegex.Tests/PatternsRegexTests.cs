@@ -176,7 +176,7 @@ public class PatternsRegexTests
       binary numbers with no runs of three or more 1s
     */
     
-    const string binaryNoMoreThanTwo1InRun = @"^(1{0,2}0+)*1{0,2}$";
+    const string binaryNoMoreThanTwo1InRun = @"^(1{0,2}0)*1{0,2}$";
 
     [InlineData("", true)]
     [InlineData("0", true)]
@@ -208,7 +208,7 @@ public class PatternsRegexTests
       no runs of k or more 1s
     */
   
-    Func<int, string> makeBinaryNoRunsOfMoreThan = k =>  $"^(1{{0,{k-1}}}0+)*1{{0,{k-1}}}$";  
+    Func<int, string> makeBinaryNoRunsOfMoreThan = k =>  $"^(1{{0,{k-1}}}0)*1{{0,{k-1}}}$";  
     
     [Theory]
     [InlineData(2, "1", true)]
