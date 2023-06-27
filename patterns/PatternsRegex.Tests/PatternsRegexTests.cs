@@ -206,7 +206,7 @@ public class PatternsRegexTests
     
     /*
       problem 24
-      no runs of k or more 1s
+      binary numbers with no runs of k or more 1s
     */
   
     Func<int, string> makeBinaryNoRunsOfMoreThan = k =>  $"^(1{{0,{k-1}}}0)*1{{0,{k-1}}}$";  
@@ -252,4 +252,37 @@ public class PatternsRegexTests
     [InlineData("4311.o", false)]
     public void binaryNoMoreThanTwo0InRun_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, binaryNoMoreThanTwo0InRun));
+    
+    /*
+      problem 26
+      binary numbers with no runs of m or more 0s and n or more 1s
+    */
+    
+    string makeBinaryNoRunsOfMoreThanFirst0AndSecond1(int first, int second)
+    {
+      if ((first <= 0) && (second <= 0)) return "^$";
+      else if (first <= 0) return $"^1{{0,{second}}}$";
+      else if (second <= 0) return $"^0{{0,{first}}}$";
+      else return $"^1{{0,{second}}}(0{{1,{first}}}1{{1,{second}}})*0{{0,{first}}}$";
+    }
+    
+    [Theory]
+    [InlineData(0, 0, "", true)]
+    [InlineData(0, 0, "0", false)]
+    [InlineData(0, 0, "1", false)]
+    [InlineData(1, 1, "0", true)]
+    [InlineData(1, 1, "1", true)]
+    [InlineData(1, 1, "01", true)]
+    [InlineData(2, 2, "00110011", true)]
+    [InlineData(3, 2, "001100011", true)]
+    [InlineData(3, 4, "00111100011000111101", true)]
+    [InlineData(1, 2, "00111100011000111101", false)]
+    [InlineData(6, 1, "hello", false)]
+    [InlineData(5, 2, "he110", false)]
+    [InlineData(4, 3, "heabcd0", false)]
+    [InlineData(3, 4, "h3110", false)]
+    [InlineData(2, 5, "4311o", false)]
+    [InlineData(1, 6, "4311.o", false)]
+    public void makeBinaryNoRunsOfMoreThanFirst0AndSecond1_GivenKAndStringMatchTheExpectedResult(int m, int n, string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, makeBinaryNoRunsOfMoreThanFirst0AndSecond1(m, n)));
 }
