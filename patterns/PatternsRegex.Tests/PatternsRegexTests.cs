@@ -285,4 +285,34 @@ public class PatternsRegexTests
     [InlineData(1, 6, "4311.o", false)]
     public void makeBinaryNoRunsOfMoreThanFirst0AndSecond1_GivenKAndStringMatchTheExpectedResult(int m, int n, string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, makeBinaryNoRunsOfMoreThanFirst0AndSecond1(m, n)));
+    
+    /*
+      problem 27
+      binary numbers with runs two or more 1s
+    */
+    
+    const string binaryTwoOrMore1InRun = @"^0*(1{2,}0+)*1{2,}0*$";
+    
+    [Theory]
+    [InlineData("11", true)]
+    [InlineData("111", true)]
+    [InlineData("0111", true)]
+    [InlineData("01110", true)]
+    [InlineData("0110110", true)]
+    [InlineData("011011101111", true)]
+    [InlineData("", false)]
+    [InlineData("0", false)]
+    [InlineData("1", false)]
+    [InlineData("0011001000", false)]
+    [InlineData("0010011000", false)]
+    [InlineData("001100110001", false)]
+    [InlineData("hello", false)]
+    [InlineData("he110", false)]
+    [InlineData("heabcd0", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void binaryTwoOrMore1InRun_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, binaryTwoOrMore1InRun));
+    
 }
