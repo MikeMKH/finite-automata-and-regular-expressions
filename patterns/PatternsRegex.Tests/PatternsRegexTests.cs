@@ -288,7 +288,7 @@ public class PatternsRegexTests
     
     /*
       problem 27
-      binary numbers with runs two or more 1s
+      binary number with runs of two or more 1s
     */
     
     const string binaryTwoOrMore1InRun = @"^0*(1{2,}0+)*1{2,}0*$";
@@ -314,5 +314,32 @@ public class PatternsRegexTests
     [InlineData("4311.o", false)]
     public void binaryTwoOrMore1InRun_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, binaryTwoOrMore1InRun));
+
+    /*
+      problem 28
+      binary number with only runs of two or more of 0s and 1s
+    */
     
+    const string binaryWithOnlyTwoOrMore0And1InRun = @"^(0{2,}|1{2,})*$";
+    
+    [Theory]
+    [InlineData("00", true)]
+    [InlineData("11", true)]
+    [InlineData("000", true)]
+    [InlineData("111", true)]
+    [InlineData("000111", true)]
+    [InlineData("00011100110000", true)]
+    [InlineData("1100111000110011", true)]
+    [InlineData("11001111100111000000011000", true)]
+    [InlineData("", true)]
+    [InlineData("0", false)]
+    [InlineData("1", false)]
+    [InlineData("hello", false)]
+    [InlineData("he110", false)]
+    [InlineData("heabcd0", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void binaryWithOnlyTwoOrMore0And1InRun_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, binaryWithOnlyTwoOrMore0And1InRun));
 }
