@@ -52,5 +52,29 @@ public class ThreeBitRegexTests
     [InlineData("4311.o", false)]
     public void binary000AtEnd_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, binary000AtEnd));
+
+    /*
+      problem 31
+      binary number with 001 only occurring once at the end
+    */
+    const string binary001OnceAtEnd = @"^(1|(01))*00*1$";
     
+    [Theory]
+    [InlineData("001", true)]
+    [InlineData("1001", true)]
+    [InlineData("101001", true)]
+    [InlineData("01001", true)]
+    [InlineData("10101111011001", true)]
+    [InlineData("0000", false)]
+    [InlineData("1111", false)]
+    [InlineData("0001000", false)]
+    [InlineData("111.", false)]
+    [InlineData("11.1", false)]
+    [InlineData("hello", false)]
+    [InlineData("he1110", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void binary001OnceAtEnd_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, binary001OnceAtEnd));
 }
