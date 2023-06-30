@@ -104,4 +104,9 @@ public class ThreeBitRegexTests
     [InlineData("4311.o", false)]
     public void binary001AtEnd_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, binary001AtEnd));
+    
+    /*
+      problem 33 - 36
+      more of the same, skipping those
+    */
 }
