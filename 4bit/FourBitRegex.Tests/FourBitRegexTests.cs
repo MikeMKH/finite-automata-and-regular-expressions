@@ -54,4 +54,8 @@ public class FourBitRegexTests
     public void binary0000AtEnd_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, binary0000AtEnd));
 
+    /*
+      problem 39 - 52
+      more of the same, skipping those
+    */
 }
