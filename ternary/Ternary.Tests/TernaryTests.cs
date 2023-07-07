@@ -65,4 +65,9 @@ public class TernaryTests
     [InlineData("4311.o", false)]
     public void ternary01AtEndAtEnd_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, ternary01AtEnd));
+
+    /*
+      problem 55 - 58
+      more of the same, skipping those
+    */
 }
