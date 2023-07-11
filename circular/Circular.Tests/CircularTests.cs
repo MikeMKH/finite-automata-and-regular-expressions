@@ -60,4 +60,8 @@ public class CircularTests
     public void circularString000NotContain_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, circularString000NotContain));
 
+    /*
+      problem 67 - 69
+      more of the same, skipping those
+    */
 }
