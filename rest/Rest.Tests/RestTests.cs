@@ -37,4 +37,36 @@ public class RestTests
     public void string1to6LessThanOrEqualPrevious_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, string1to6LessThanOrEqualPrevious));
 
+    /*
+      problem 72
+      model of betting on coin flip, heads you win $1, two people with $3 each, model what a game could look like
+    */
+    const string coinFlipLoss = @"((T(TH)*H)|(H(HT)*T))*T(TH)*TT";
+    const string coinFlipWin  = @"((T(TH)*H)|(H(HT)*T))*H(HT)*HH";
+    const string coinFlipOutcomes = $"^({coinFlipLoss})|({coinFlipWin})$";
+    
+    [Theory]
+    [InlineData("TTT", true)]
+    [InlineData("TTHTT", true)]
+    [InlineData("THTTHTT", true)]
+    [InlineData("HTTHTTHTT", true)]
+    [InlineData("HTTHTTHTTHTHTHTHTHT", true)]
+    [InlineData("HHH", true)]
+    [InlineData("HTHHH", true)]
+    [InlineData("HTHTHHH", true)]
+    [InlineData("HTHTHTHHH", true)]
+    [InlineData("HTHTHTHHTHH", true)]
+    [InlineData("HTTTHHHTHTHHTHH", true)]
+    // [InlineData("HHHTTTHHTTHTTTT", true)] // not support by model
+    [InlineData("1", false)]
+    [InlineData("111.", false)]
+    [InlineData("11.1", false)]
+    [InlineData("hello", false)]
+    [InlineData("he1110", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void coinFlipOutcomes_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, coinFlipOutcomes));
+
 }
