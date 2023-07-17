@@ -69,4 +69,40 @@ public class RestTests
     public void coinFlipOutcomes_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, coinFlipOutcomes));
 
+    /*
+      problem 75
+      pairs of ()s up to and including 5 deep
+    */
+    const string stringPairsOfParenthesesUpTo5Deep = @"^(\((\((\((\((\((\(\))*\))*\))*\))*\))*\))*$";
+    
+    [Theory]
+    [InlineData("", true)]
+    [InlineData("()", true)]
+    [InlineData("(())", true)]
+    [InlineData("((()))", true)]
+    [InlineData("(((())))", true)]
+    [InlineData("((((()))))", true)]
+    [InlineData("(((((())))))", true)]
+    [InlineData("((((((()))))))", false)] // 6 levels
+    [InlineData("()", true)]
+    [InlineData("()()()", true)]
+    [InlineData("(())(())(())", true)]
+    [InlineData("()(())((()))(((())))((((()))))", true)]
+    [InlineData("(", false)]
+    [InlineData(")", false)]
+    [InlineData(")()", false)]
+    [InlineData("())", false)]
+    [InlineData("().", false)]
+    [InlineData("().()", false)]
+    [InlineData("(foo)", false)]
+    [InlineData("(+ 2 2)", false)]
+    [InlineData("11.1", false)]
+    [InlineData("hello", false)]
+    [InlineData("he1110", false)]
+    [InlineData("h3110", false)]
+    [InlineData("4311o", false)]
+    [InlineData("4311.o", false)]
+    public void stringPairsOfParenthesesUpTo5Deep_GivenStringMatchTheExpectedResult(string given, bool expected)
+      => Assert.Equal(expected, Regex.IsMatch(given, stringPairsOfParenthesesUpTo5Deep));
+
 }
