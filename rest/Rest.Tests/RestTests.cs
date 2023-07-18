@@ -105,4 +105,8 @@ public class RestTests
     public void stringPairsOfParenthesesUpTo5Deep_GivenStringMatchTheExpectedResult(string given, bool expected)
       => Assert.Equal(expected, Regex.IsMatch(given, stringPairsOfParenthesesUpTo5Deep));
 
+    /*
+      problem 76 - 84
+      skipping these since they require infinite regular expressions
+    */
 }
